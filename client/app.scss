@@ -1,0 +1,276 @@
+$screen-sm: 768px;
+$screen-md: 992px;
+$screen-lg: 1200px;
+
+$container-sm: 750px;
+$container-md: 970px;
+$container-lg: 1170px;
+
+$background-color-1: #1D2637;
+$background-color-2: #28354D;
+$background-color-3: #1E232F;
+$font-color-1: #D6D7DA;
+$font-color-2: #888C92;
+$link-color-1: #73A3FB;
+$highlight-color-1: #FEAA0A;
+$highlight-color-2: #FF0036;
+
+@mixin transition($transition) {
+  -webkit-transition: $transition;
+  -moz-transition: $transition;
+  -o-transition: $transition;
+  transition: $transition;
+}
+
+@mixin translateY($amount) {
+  -webkit-transform: translateY($amount);
+  -moz-transform: translateY($amount);
+  -o-transform: translateY($amount);
+  -ms-transform: translateY($amount);
+  transform: translateY($amount);
+}
+
+@mixin hero-fade-gradient($color) {
+
+  background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba($color, 1) 100%);
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba($color, 1) 100%);
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba($color, 1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='$color',GradientType=0 );
+
+}
+
+html {
+  font-size: 87.5%;
+}
+
+html, body {
+  background-color: $background-color-1;
+}
+
+$navigation-height: 4rem;
+
+.navigation--main {
+
+  height: $navigation-height;
+  background-color: $background-color-1;
+
+}
+
+.navigation {
+
+  &__toggle {
+    color: $font-color-1;
+  }
+
+  &__trigger {
+
+    display: none;
+
+    &:checked + .navigation__menu {
+
+      @include transition(left 0.2s ease-out);
+
+      left: 0;
+
+    }
+
+  }
+
+  &__menu {
+
+    @include transition(left 0.2s ease-in);
+
+    z-index: 9999;
+    position: absolute;
+    width: 100%;
+    top: $navigation-height;
+    left: -100%;
+    background-color: $background-color-1;
+    padding-left: 0;
+
+  }
+
+  &__item {
+
+    color: $font-color-1;
+    list-style: none;
+    text-align: center;
+    padding: 1rem 0;
+    text-transform: uppercase;
+    border-top: 0.2rem solid $background-color-2;
+
+    &:hover {
+      color: $highlight-color-1;
+      background-color: $background-color-2;
+      border-left: 1rem solid $highlight-color-1;
+      border-top: none;
+
+      & + .navigation__item {
+        border-top: none;
+      }
+    }
+
+  }
+
+  &__link {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+
+    &:hover {
+      color: $highlight-color-1;
+      text-decoration: none;
+    }
+  }
+
+}
+
+@media screen and (min-width: $screen-sm) {
+
+  .navigation {
+
+    &__toggle {
+
+      display: none;
+
+    }
+
+    &__trigger {
+
+      &:checked + .navigation__menu {
+        @include transition(none);
+      }
+
+    }
+
+    &__menu {
+
+      @include transition(none);
+      margin-bottom: 0;
+      position: static;
+
+    }
+
+    &__item {
+
+      padding: 0;
+      display: inline-block;
+      border-top: none;
+      height: $navigation-height;
+      width: $navigation-height * 2;
+
+      &:hover {
+        border-left: none;
+        border-bottom: 0.2rem solid $highlight-color-1;
+      }
+
+    }
+
+    &__link {
+      height: 100%;
+      padding-top: $navigation-height / 4;
+    }
+
+  }
+
+}
+
+.container {
+
+  padding: 0 1rem;
+
+  @media screen and (min-width: $screen-sm) {
+    width: $container-sm;
+  }
+
+  @media screen and (min-width: $screen-md) {
+    width: $container-md;
+  }
+
+  @media screen and (min-width: $screen-lg) {
+    width: $container-lg;
+  }
+
+}
+
+.container--full-width {
+  width: 100%;
+}
+
+$hero--game-profile-height: 27rem;
+$hero--game-profile-xs-height: 9rem;
+
+.hero--game-profile {
+
+  &__container {
+    overflow: hidden;
+    position: relative;
+    height: $hero--game-profile-xs-height;
+  }
+
+  &__image {
+    width: 100%;
+  }
+
+  &__fade {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    height: ($hero--game-profile-xs-height / 3);
+
+    @include hero-fade-gradient($background-color-1);
+  }
+
+}
+
+@media screen and (min-width: $screen-sm) {
+
+  .hero--game-profile {
+
+    &__container {
+      height: $hero--game-profile-height;
+    }
+
+    &__fade {
+      height: ($hero--game-profile-height / 3);
+    }
+
+  }
+
+}
+
+@media screen and (min-width: $screen-md) {
+
+  .hero--game-profile {
+
+    &__image {
+      @include translateY(-20%);
+    }
+
+  }
+
+}
+
+.summary {
+
+  &__main-image {
+    display: none;
+  }
+
+  &__title {
+    color: $font-color-1;
+  }
+
+  &__description {
+    color: $font-color-1;
+  }
+
+}
+
+.summary-box {
+
+  &__title {
+    text-align: center;
+  }
+
+}
